@@ -26,7 +26,7 @@ class Game(models.Model):
         return reverse('game', args=self.slug)
 
     def save(self, *args, **kwargs):
-        slugify(self.title)
+        self.slug = slugify(self.title)
         super().save(*args, **kwargs)
 
     class Meta:
