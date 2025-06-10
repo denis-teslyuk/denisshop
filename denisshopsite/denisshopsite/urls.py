@@ -21,3 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('denisshop.urls'))
 ]
+
+admin.site.site_header = 'Панель администрирования'
+admin.site.index_title = 'Denisshop'
