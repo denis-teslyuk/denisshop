@@ -8,6 +8,7 @@ from .models import Game
 # Create your views here.
 def index(request):
     games = Game.objects.all()
+    form = FilterForm(request.GET)
 
     games = games.filter(sale_price__isnull=False) if 'sale' in request.GET else games
     games = games.filter(title__contains=request.GET.get('search', ''))
@@ -18,6 +19,7 @@ def index(request):
 
     data = {
         'games': games,
+        'form':form
     }
     return render(request, 'denisshop/index.html', data)
 
