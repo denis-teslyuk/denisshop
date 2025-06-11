@@ -20,7 +20,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('denisshop.urls')),
-    path('users', include('users.urls', namespace='users'))
+    path('users/', include('users.urls', namespace='users'))
 ]
 
 admin.site.site_header = 'Панель администрирования'
