@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Главная</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
     {% for g in games %}
         {{g.title}}
     {% endfor %}
@@ -12,5 +8,4 @@
     {{form.as_p}}
     <button type="submit">Применить</button>
     </form>
-</body>
-</html>
+{% endblock %}
