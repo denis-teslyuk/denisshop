@@ -26,11 +26,6 @@ class RegistrationUser(CreateView):
     def get_success_url(self):
         return reverse_lazy('home')
 
-    def form_valid(self, form):
-        user = form.save()
-        user.cart = Cart.objects.create(user = user)
-        return HttpResponseRedirect(self.get_success_url())
-
 
 class ProfileUser(LoginRequiredMixin, UpdateView):
     form_class = ProfileForm
