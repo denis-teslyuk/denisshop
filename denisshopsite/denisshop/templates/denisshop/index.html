@@ -1,9 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <ul>
     {% for g in games %}
-        {{g.title}}
+       <li> {{g.title}}
+           {% if user.is_authenticated %}
+           <a href="{% url 'cart:add_item' g.slug %}">Добавить в корзину</a>
+           {% endif %}
+       </li>
     {% endfor %}
+    </ul>
     <form action="" method="get">
     {{form.as_p}}
     <button type="submit">Применить</button>
