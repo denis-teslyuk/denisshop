@@ -33,3 +33,4 @@ class ProfileUser(UpdateView):
 
     def get_object(self, queryset=None):
         return get_user_model().objects.get(pk=self.request.user.pk)
+

@@ -4,6 +4,7 @@
 <form action="" method="post">
     {% csrf_token %}
     {{form.as_p}}
-    <button type="submit">Изменить</button>
+    <button type="submit">Изменить данные</button>
 </form>
+<a href="{% url 'users:password_change' %}">Изменить пароль</a>
 {% endblock %}
