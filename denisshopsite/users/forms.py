@@ -18,3 +18,11 @@ class RegistrationForm(UserCreationForm):
         if get_user_model().objects.filter(email = email):
             raise ValidationError('Пользователь с таким E-mail же существует')
         return email
+
+
+class ProfileForm(forms.ModelForm):
+    username = forms.CharField(disabled=True, label='Имя пользователя')
+
+    class Meta:
+        model = get_user_model()
+        fields = ['username', 'email', 'first_name', 'last_name']
