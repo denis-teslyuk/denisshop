@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 
 from django.conf.global_settings import LOGOUT_REDIRECT_URL, AUTHENTICATION_BACKENDS, EMAIL_BACKEND, EMAIL_HOST, \
-    EMAIL_HOST_PASSWORD, EMAIL_USE_SSL
+    EMAIL_HOST_PASSWORD, EMAIL_USE_SSL, LOGIN_URL, LOGIN_REDIRECT_URL
 from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -134,7 +134,10 @@ AUTHENTICATION_BACKENDS = [
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 LOGOUT_REDIRECT_URL = reverse_lazy('home')
+LOGIN_URL = reverse_lazy('users:login')
+LOGIN_REDIRECT_URL = reverse_lazy('home')
 
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465

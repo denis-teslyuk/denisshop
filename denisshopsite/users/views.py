@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
@@ -13,9 +14,6 @@ class LoginUser(LoginView):
     extra_context = {'title':'Авторизация'}
     template_name = 'users/login.html'
 
-    def get_success_url(self):
-        return reverse_lazy('home')
-
 
 class RegistrationUser(CreateView):
     form_class = RegistrationForm
@@ -26,7 +24,7 @@ class RegistrationUser(CreateView):
         return reverse_lazy('home')
 
 
-class ProfileUser(UpdateView):
+class ProfileUser(LoginRequiredMixin, UpdateView):
     form_class = ProfileForm
     template_name = 'users/profile.html'
     extra_context = {'title': 'Профиль'}
