@@ -2,9 +2,12 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
+from django.db.transaction import commit
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
 
+from cart.models import Cart
 from users.forms import RegistrationForm, ProfileForm
 
 
@@ -22,6 +25,11 @@ class RegistrationUser(CreateView):
 
     def get_success_url(self):
         return reverse_lazy('home')
+
+    def form_valid(self, form):
+        user = form.save()
+        user.cart = Cart.objects.create(user = user)
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class ProfileUser(LoginRequiredMixin, UpdateView):
