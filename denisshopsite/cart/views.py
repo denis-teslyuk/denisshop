@@ -29,3 +29,7 @@ def delete_item(request, slug):
     return redirect(request.META.get('HTTP_REFERER'))
 
 
+def show_cart(request):
+    item_list = Cart.objects.filter(user = request.user)
+    data = {'item_list':item_list, 'title':'Корзина'}
+    return render(request, 'cart/show_cart.html', data)
