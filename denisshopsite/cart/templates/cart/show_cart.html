@@ -6,6 +6,10 @@
     <a href="{% url 'cart:delete_item' item.game.slug %}?count=1">-</a>
     {{item.amount}}
     <a href="{% url 'cart:add_item' item.game.slug %}">+</a>
-    <a href="{% url 'cart:delete_item' item.game.slug %}?count=all">Удалить</a></div>
+    <a href="{% url 'cart:delete_item' item.game.slug %}">Удалить</a></div>
+    {% if item.game.keys.all.count < item.amount %}
+        <span>В наличии {{item.game.keys.all.count}} ключей</span>
+    {% endif %}
     {% endfor %}
+    <div><a href="{% url 'cart:delete_item'%}?count=all">Очистить корзину</a></div>
 {% endblock %}

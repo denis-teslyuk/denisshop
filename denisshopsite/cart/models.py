@@ -10,3 +10,6 @@ class Cart(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE,
                                 related_name='cart', verbose_name='Пользователь')
     amount = models.PositiveIntegerField(verbose_name='Количество', default=1)
+
+
+
