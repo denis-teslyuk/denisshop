@@ -19,3 +19,13 @@ def add_item(request, slug):
     item.amount = F('amount') + 1
     item.save()
     return redirect(request.META.get('HTTP_REFERER'))
+
+
+def delete_item(request, slug):
+    if request.GET.get('count') == 'all':
+        Cart.objects.filter(user=request.user).delete()
+        return redirect(request.META.get('HTTP_REFERER'))
+    Cart.objects.filter(game__slug = slug, user=request.user).delete()
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
