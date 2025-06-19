@@ -25,7 +25,16 @@ def delete_item(request, slug):
     if request.GET.get('count') == 'all':
         Cart.objects.filter(user=request.user).delete()
         return redirect(request.META.get('HTTP_REFERER'))
-    Cart.objects.filter(game__slug = slug, user=request.user).delete()
+    try:
+        item = Cart.objects.get(game__slug=slug, user=request.user)
+    except:
+        return redirect(request.META.get('HTTP_REFERER'))
+
+    if request.GET.get('count') == '1':
+        item.amount = F('amount') - 1
+        item.save()
+    if item.amount == 0 or request.GET.get('count') is None:
+        item.delete()
     return redirect(request.META.get('HTTP_REFERER'))
 
 
