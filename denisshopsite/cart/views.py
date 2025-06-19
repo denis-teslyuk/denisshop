@@ -2,7 +2,7 @@ from django.db.models import F
 from django.shortcuts import render, redirect
 
 from cart.models import Cart
-from denisshop.models import Game
+from denisshop.models import Game, Key
 
 
 # Create your views here.
@@ -48,6 +48,20 @@ def show_cart(request):
     data = {'item_list':item_list, 'title':'Корзина'}
     return render(request, 'cart/show_cart.html', data)
 
+
+def buy_items(request):
+    item_list = Cart.objects.filter(user = request.user)
+    for item in item_list:
+        if item.amount > item.game.keys.filter(user=None).count():
+            return redirect(request.META.get('HTTP_REFERER'))
+    #Здесь мог бы быть код для оплаты
+    for item in item_list:
+        keys = Key.objects.filter(game = item.game)[:item.amount]
+        for key in keys:
+            key.user = request.user
+            key.save()
+        item.delete()
+    return redirect(request.META.get('HTTP_REFERER'))
 
 
 

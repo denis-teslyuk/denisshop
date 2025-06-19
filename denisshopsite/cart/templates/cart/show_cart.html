@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load my_tags %}
 
 {% block content %}
     {% for item in item_list %}
@@ -7,9 +8,11 @@
     {{item.amount}}
     <a href="{% url 'cart:add_item' item.game.slug %}">+</a>
     <a href="{% url 'cart:delete_item' item.game.slug %}">Удалить</a></div>
-    {% if item.game.keys.all.count < item.amount %}
-        <span>В наличии {{item.game.keys.all.count}} ключей</span>
+    {% get_free_keys item as free_keys %}
+    {% if free_keys < item.amount %}
+        <span>В наличии {{free_keys}} ключей</span>
     {% endif %}
     {% endfor %}
     <div><a href="{% url 'cart:delete_item'%}?count=all">Очистить корзину</a></div>
+    <div><a href="{% url 'cart:buy_items' %}">Купить</a></div>
 {% endblock %}
