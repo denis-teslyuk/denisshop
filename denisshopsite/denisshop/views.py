@@ -43,3 +43,13 @@ def add_review(request, slug):
     return render(request, 'denisshop/add_review.html', {'title':'Отзыв', 'form':form})
 
 
+def show_review(request):
+    if request.GET.get('choice') == 'my':
+        review_list = Review.objects.filter(key__user = request.user)
+    else:
+        review_list = Review.objects.all()
+    data = {
+        'title':'Отзывы',
+        'review_list':review_list
+    }
+    return render(request, 'denisshop/show_review.html', data)

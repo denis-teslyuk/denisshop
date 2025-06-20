@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<ul>
+{% for review in review_list %}
+    <li>
+        <div>{{review.key.user.username}}</div>
+        <div>{{review.content}}</div>
+    </li>
+{% endfor %}
+</ul>
+{% endblock %}
