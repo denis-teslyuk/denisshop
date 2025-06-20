@@ -7,4 +7,7 @@
     <button type="submit">Изменить данные</button>
 </form>
 <a href="{% url 'users:password_change' %}">Изменить пароль</a>
+{% for key in keys %}
+    <div>{{key.game.title}}  {{key.key}}</div>
+{% endfor %}
 {% endblock %}

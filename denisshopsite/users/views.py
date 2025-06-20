@@ -8,6 +8,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
 
 from cart.models import Cart
+from denisshop.models import Key
 from users.forms import RegistrationForm, ProfileForm
 
 
@@ -30,7 +31,12 @@ class RegistrationUser(CreateView):
 class ProfileUser(LoginRequiredMixin, UpdateView):
     form_class = ProfileForm
     template_name = 'users/profile.html'
-    extra_context = {'title': 'Профиль'}
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Профиль'
+        context['keys'] = Key.objects.filter(user = self.request.user)
+        return context
 
     def get_object(self, queryset=None):
         return get_user_model().objects.get(pk=self.request.user.pk)
