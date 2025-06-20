@@ -69,12 +69,17 @@ class Series(models.Model):
 
 class Key(models.Model):
     key = models.CharField(max_length=64, unique=True, verbose_name='Ключ')
+    slug = models.SlugField(max_length=64, blank=True, unique=True)
     game = models.ForeignKey('Game', on_delete=models.CASCADE, verbose_name='Игра', related_name='keys')
     user = models.ForeignKey(get_user_model(), on_delete=models.DO_NOTHING,
                              null=True, blank=True, default=None, verbose_name='Владелец')
 
     def __str__(self):
         return self.key
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.key)
+        super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Ключ'

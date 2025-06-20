@@ -8,6 +8,10 @@
 </form>
 <a href="{% url 'users:password_change' %}">Изменить пароль</a>
 {% for key in keys %}
-    <div>{{key.game.title}}  {{key.key}}</div>
+<div>{{key.game.title}}  {{key.key}}
+    {% if not key.review %}
+    <a href="{% url 'add_review' key.slug %}">Написать отзыв</a>
+    {% endif %}
+</div>
 {% endfor %}
 {% endblock %}

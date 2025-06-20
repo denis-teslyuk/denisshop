@@ -1,8 +1,10 @@
-from django.shortcuts import render
+from django.core.exceptions import ObjectDoesNotExist
+from django.shortcuts import render, redirect
 
 from forms import FilterForm
+from .forms import ReviewForm
 from .utils import filter_games, sort_games, filter_price
-from .models import Game
+from .models import Game, Key
 
 
 # Create your views here.
@@ -22,5 +24,22 @@ def index(request):
         'form':form
     }
     return render(request, 'denisshop/index.html', data)
+
+def add_review(request, slug):
+    try:
+        key = Key.objects.get(slug = slug, user = request.user, review=None)
+    except ObjectDoesNotExist:
+        return redirect('home')
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            rev = form.save(commit=False)
+            rev.user = request.user
+            rev.key = key
+            rev.save()
+            return redirect('users:profile')
+
+    form = ReviewForm()
+    return render(request, 'denisshop/add_review.html', {'title':'Отзыв', 'form':form})
 
 
