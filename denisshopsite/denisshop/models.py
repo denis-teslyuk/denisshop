@@ -87,8 +87,6 @@ class Key(models.Model):
 
 
 class Review(models.Model):
-    user = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, related_name='rewies',
-                             null=True, blank=True, verbose_name='Автор')
     content = models.TextField(verbose_name='Содержание')
     key = models.OneToOneField('Key', on_delete=models.SET_NULL, null=True,
                                blank=True, related_name='review')

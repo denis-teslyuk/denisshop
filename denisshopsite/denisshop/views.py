@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from forms import FilterForm
 from .forms import ReviewForm
 from .utils import filter_games, sort_games, filter_price
-from .models import Game, Key
+from .models import Game, Key, Review
 
 
 # Create your views here.
@@ -25,6 +25,7 @@ def index(request):
     }
     return render(request, 'denisshop/index.html', data)
 
+
 def add_review(request, slug):
     try:
         key = Key.objects.get(slug = slug, user = request.user, review=None)
@@ -34,7 +35,6 @@ def add_review(request, slug):
         form = ReviewForm(request.POST)
         if form.is_valid():
             rev = form.save(commit=False)
-            rev.user = request.user
             rev.key = key
             rev.save()
             return redirect('users:profile')
