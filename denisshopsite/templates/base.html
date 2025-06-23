@@ -7,17 +7,54 @@
     <link rel="stylesheet" href="{% static 'denisshop/css/style.css' %}">
 </head>
 <body>
-  {% if user.is_authenticated %}
-      <a href="{% url 'users:profile' %}">Профиль</a>
-      <a href="{% url 'cart:show_cart' %}">Корзина</a>
-      <form action="{% url 'users:logout' %}" method="post">
-          {% csrf_token %}
-          <button type="submit">Выйти</button>
-      </form>
-  {% else %}
-      <div><a href="{% url 'users:login' %}">Войти</a></div>
+  <div class="wrapper">
+  <header class="header">
+  <div class="header-container">
 
-  {% endif %}
+      <nav class="header-menu-container">
+      <ul class="header-menu">
+          {% for m in menu %}
+          {% if m.title != 'Скидки' %}
+          <li class="header-menu-item"><a href="{% url m.url_name %}">{{m.title}}</a></li>
+          {% else %}
+          <li class="header-menu-item"><a href="{% url m.url_name %}?sale=yes">{{m.title}}</a></li>
+          {% endif %}
+          {% endfor %}
+      </ul>
+      </nav>
+
+      <div>
+      <form action="/" method="get">
+          <input type="text" name="search">
+          <button type="submit" class="header-search-button"><img src="{% static 'denisshop/img/lupa.png' %}" width="23px"/></button>
+      </form>
+      </div>
+
+      <div>
+          <div class="header-user-container">
+            {% if user.is_authenticated %}
+                <div class="header-cart-link"><a href="{% url 'cart:show_cart' %}"><img src="{% static 'denisshop/img/cart.png' %}" width="38px"/></a></div>
+                <div class="header-profile-link"><a href="{% url 'users:profile' %}"><img src="{% static 'denisshop/img/user.png' %}" width="30px"/></a></div>
+                <div class="header-logout-link">
+                <form action="{% url 'users:logout' %}" method="post">
+                    {% csrf_token %}
+                    <button class="header-logout-button" type="submit">Выйти</button>
+                </form>
+                </div>
+            {% else %}
+                <div><a href="{% url 'users:login' %}">Войти</a> | <a href="{% url 'users:registration' %}">Регистрация</a></div>
+            {% endif %}
+          </div>
+      </div>
+
+  </div>
+  </header>
+
+   <section class="main">
   {% block content %}{% endblock %}
+   </section>
+
+  <footer class="footer">footer</footer>
+  </div>
 </body>
 </html>
