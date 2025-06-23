@@ -1,29 +1,65 @@
 {% extends 'base.html' %}
+{% load my_tags %}
+{% load static %}
 
 {% block content %}
 <div class="main-index">
     <aside class="index-aside">
+
         <form action="" method="get">
-        <div class="form-error">{{form.non_field_errors}}</div>
+            <div class="form-error">{{form.non_field_errors}}</div>
             <div class="index-aside-filter-label index-aside-filter-label-first">Цена</div>
-        {% for f in form %}
-            {% if f.label == 'от: ' or f.label == 'до: ' %}
-            <p class="index-aside-filter-price"><label  for="f.id_for_label">{{f.label}}</label>{{f}}</p>
-            <div class="form-error">{{f.errors}}</div>
-            {% else %}
-            <div class="index-aside-filter-label">{{f.label}}</div>
-            <p>{{f}}</p>
-            <div class="form-error">{{f.errors}}</div>
-            {% endif %}
-        {% endfor %}
+            {% for f in form %}
+                {% if f.label == 'от: ' or f.label == 'до: ' %}
+                    <p><label  for="f.id_for_label">{{f.label}}</label>{{f}}</p>
+                    <div class="form-error">{{f.errors}}</div>
+                {% else %}
+                    <div class="index-aside-filter-label">{{f.label}}</div>
+                    <p>{{f}}</p>
+                    <div class="form-error">{{f.errors}}</div>
+                {% endif %}
+            {% endfor %}
         <button type="submit" class="index-aside-button">Применить</button>
         </form>
+
     </aside>
 
     <ul class="index-game-list">
     {% for g in games %}
        <li class="index-game-list-item">
-           <div><img src="{{g.image.url}}" width="250"/></div>
+           <div class="index-game-list-item-image"><img src="{{g.image.url}}" width="250"/></div>
+
+           <div class="index-game-list-item-content">
+               <div class="index-game-list-item-title">{{g.title}}</div>
+               <div class="index-game-list-item-release">
+                   <div>Дата выхода: </div>
+                   <div>{{g.release}}</div>
+               </div>
+               <div class="index-game-list-item-genres">
+                   <div>Жанры: </div>
+                   <div>{% for gen in g.genres.all%}{{gen.title}} {% endfor %}</div>
+               </div>
+           </div>
+
+           <div class="index-game-list-item-right">
+               {% if g.sale_price %}
+               <div class="index-game-list-item-price"><span class="index-game-list-item-span-price">{{g.price}}</span> <span  class="index-game-list-item-span-sale-price">{{g.sale_price}}</span></div>
+               {% else %}
+               <div class="index-game-list-item-price">{{g.price}}</div>
+               {% endif %}
+
+               {% get_amount user g as amount %}
+               {% if amount %}
+               <div class="index-game-list-item-control" >
+                    <a href="{% url 'cart:delete_item' g.slug %}?count=1">-</a>
+                    <div>{{amount}}</div>
+                    <a href="{% url 'cart:add_item' g.slug %}">+</a>
+                    <a href="{% url 'cart:delete_item' g.slug %}"><img src="{% static 'denisshop/img/trash.png' %}" width="20px"/></a>
+               </div>
+               {% else %}
+                   <div class="index-game-list-item-button"><a href="{% url 'cart:add_item' g.slug %}">Купить</a></div>
+               {% endif %}
+           </div>
        </li>
     {% endfor %}
     </ul>

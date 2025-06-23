@@ -3,3 +3,4 @@ menu = [{'title':'Каталог', 'url_name':'home'},{'title':'Скидки', '
 
 def get_menu(request):
     return {'menu':menu}
+
