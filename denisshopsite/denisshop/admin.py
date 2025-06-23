@@ -1,9 +1,10 @@
 from django.contrib import admin
-from denisshop.models import Game, Platform, Genre, Series, Key
+from denisshop.models import Game, Platform, Genre, Series, Key, Review
 
 admin.site.register(Platform)
 admin.site.register(Genre)
 admin.site.register(Series)
+admin.site.register(Review)
 
 
 @admin.register(Game)

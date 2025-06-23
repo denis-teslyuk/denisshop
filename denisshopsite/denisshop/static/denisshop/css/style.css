@@ -181,6 +181,10 @@ h1, h2, h3, h4, h5, h6 {
   color: #383838;
 }
 
+.index-aside-filter-label-first {
+  margin-top: 0px;
+}
+
 .index-aside-filter {
   width: 200px;
   border: none;

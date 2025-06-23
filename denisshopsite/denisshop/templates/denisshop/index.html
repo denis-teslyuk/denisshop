@@ -5,7 +5,7 @@
     <aside class="index-aside">
         <form action="" method="get">
         <div class="form-error">{{form.non_field_errors}}</div>
-            <div class="index-aside-filter-label">Цена</div>
+            <div class="index-aside-filter-label index-aside-filter-label-first">Цена</div>
         {% for f in form %}
             {% if f.label == 'от: ' or f.label == 'до: ' %}
             <p class="index-aside-filter-price"><label  for="f.id_for_label">{{f.label}}</label>{{f}}</p>
@@ -20,15 +20,10 @@
         </form>
     </aside>
 
-    <ul>
+    <ul class="index-game-list">
     {% for g in games %}
-       <li> {{g.title}}
-           {% if g.image %}
-           <img src="{{g.image.url}}" width="300px"/>
-           {% endif %}
-           {% if user.is_authenticated %}
-           <a href="{% url 'cart:add_item' g.slug %}">Добавить в корзину</a>
-           {% endif %}
+       <li class="index-game-list-item">
+           <div><img src="{{g.image.url}}" width="250"/></div>
        </li>
     {% endfor %}
     </ul>

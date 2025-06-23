@@ -7,7 +7,7 @@ from pytils.translit import slugify
 class Game(models.Model):
     title = models.CharField(max_length=128, verbose_name='Название')
     slug = models.SlugField(max_length=256,blank=True, unique=True, verbose_name='Слаг')
-    image = models.ImageField(upload_to='game_images', default=None, null=True, verbose_name='Изображение')
+    image = models.ImageField(upload_to='game_images', verbose_name='Изображение')
     description = models.TextField(verbose_name='Описание')
     price = models.FloatField(verbose_name='Цена')
     sale_price = models.FloatField(blank=True, null=True, verbose_name='Цена со скидкой')
@@ -90,5 +90,10 @@ class Key(models.Model):
 
 class Review(models.Model):
     content = models.TextField(verbose_name='Содержание')
-    key = models.OneToOneField('Key', on_delete=models.SET_NULL, null=True,
+    key = models.OneToOneField('Key', on_delete=models.CASCADE, null=True,
                                blank=True, related_name='review')
+
+    class Meta:
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'
+
