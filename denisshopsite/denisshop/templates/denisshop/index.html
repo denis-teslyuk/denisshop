@@ -1,6 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="main-index">
+    <aside class="index-aside">
+        <form action="" method="get">
+        <div class="form-error">{{form.non_field_errors}}</div>
+            <div class="index-aside-filter-label">Цена</div>
+        {% for f in form %}
+            {% if f.label == 'от: ' or f.label == 'до: ' %}
+            <p class="index-aside-filter-price"><label  for="f.id_for_label">{{f.label}}</label>{{f}}</p>
+            <div class="form-error">{{f.errors}}</div>
+            {% else %}
+            <div class="index-aside-filter-label">{{f.label}}</div>
+            <p>{{f}}</p>
+            <div class="form-error">{{f.errors}}</div>
+            {% endif %}
+        {% endfor %}
+        <button type="submit" class="index-aside-button">Применить</button>
+        </form>
+    </aside>
     <ul>
     {% for g in games %}
        <li> {{g.title}}
@@ -10,8 +28,7 @@
        </li>
     {% endfor %}
     </ul>
-    <form action="" method="get">
-    {{form.as_p}}
-    <button type="submit">Применить</button>
-    </form>
+</div>
+
+
 {% endblock %}

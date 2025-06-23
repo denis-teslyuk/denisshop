@@ -1,8 +1,7 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
 
-from forms import FilterForm
-from .forms import ReviewForm
+from .forms import ReviewForm, FilterForm
 from .utils import filter_games, sort_games, filter_price
 from .models import Game, Key, Review
 
