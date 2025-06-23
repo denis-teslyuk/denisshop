@@ -7,6 +7,7 @@ from pytils.translit import slugify
 class Game(models.Model):
     title = models.CharField(max_length=128, verbose_name='Название')
     slug = models.SlugField(max_length=256,blank=True, unique=True, verbose_name='Слаг')
+    image = models.ImageField(upload_to='game_images', default=None, null=True, verbose_name='Изображение')
     description = models.TextField(verbose_name='Описание')
     price = models.FloatField(verbose_name='Цена')
     sale_price = models.FloatField(blank=True, null=True, verbose_name='Цена со скидкой')
@@ -18,6 +19,7 @@ class Game(models.Model):
     genres = models.ManyToManyField('Genre', related_name='games', verbose_name='Жанры')
     series = models.ForeignKey('Series',null=True, on_delete=models.SET_NULL, verbose_name='Серия')
     release = models.DateField(verbose_name='Дата выхода')
+
 
     def __str__(self):
         return self.title

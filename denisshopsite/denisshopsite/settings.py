@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 
 from django.conf.global_settings import LOGOUT_REDIRECT_URL, AUTHENTICATION_BACKENDS, EMAIL_BACKEND, EMAIL_HOST, \
-    EMAIL_HOST_PASSWORD, EMAIL_USE_SSL, LOGIN_URL, LOGIN_REDIRECT_URL
+    EMAIL_HOST_PASSWORD, EMAIL_USE_SSL, LOGIN_URL, LOGIN_REDIRECT_URL, MEDIA_ROOT, MEDIA_URL
 from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -125,6 +125,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

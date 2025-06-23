@@ -19,9 +19,13 @@
         <button type="submit" class="index-aside-button">Применить</button>
         </form>
     </aside>
+
     <ul>
     {% for g in games %}
        <li> {{g.title}}
+           {% if g.image %}
+           <img src="{{g.image.url}}" width="300px"/>
+           {% endif %}
            {% if user.is_authenticated %}
            <a href="{% url 'cart:add_item' g.slug %}">Добавить в корзину</a>
            {% endif %}
