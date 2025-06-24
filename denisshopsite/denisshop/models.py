@@ -20,7 +20,6 @@ class Game(models.Model):
     series = models.ForeignKey('Series',null=True, on_delete=models.SET_NULL, verbose_name='Серия')
     release = models.DateField(verbose_name='Дата выхода')
 
-
     def __str__(self):
         return self.title
 

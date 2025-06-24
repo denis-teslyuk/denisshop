@@ -233,6 +233,188 @@
     font-size: 22px;
 }
 
+.game-title{
+    font-size: 26px;
+    font-weight: 700;
+    color: #383838;
+    margin: 30px 0px;
+}
+
+.game-info-image{
+    margin-right: 30px;
+}
+
+.game-info{
+    a, a:visited{
+        color:#383838
+    }
+    display: flex;
+    width: 100%;
+    height: 100%;
+    color: #383838;
+    margin-bottom: 30px;
+}
+
+.game-info-data{
+    width: 500px;
+    height: 255px;
+    margin-right: auto;
+}
+
+.game-info-extra-item{
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.game-info-extra{
+    margin-bottom: 40px;
+}
+
+.game-info-buing{
+    display: flex;
+    flex-direction: column;
+    width:150px;
+}
+
+.game-info-money{
+    flex: 0 1 100%;
+}
+
+.game-info-sale-price{
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.game-info-price{
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.game-info-price-line_through{
+    text-decoration: line-through;
+    font-size: 20px;
+}
+
+.game-info-buy-button{
+    width: 150px;
+    text-align: center;
+    box-shadow: 1px 1px 1px 1px #02020277;
+    background-color: #dfe3e4;
+    padding: 7px;
+    border-radius: 3px;
+    font-size: 22px;
+}
+
+.game-info-control{
+    a{
+        font-size: 25px;
+    }
+    font-size: 20px;
+    div{
+        margin-right: 10px;
+        display: inline-block;
+    }
+}
+
+.game-series{
+    a, a:visited{
+        color:#383838
+    }
+    color: #383838;
+    margin-bottom: 30px;
+}
+
+.game-series-header{
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.game-series-item{
+    height: 89px;
+    display: flex;
+    border-bottom: 2px solid #38383866;
+    &:first-child{
+        border-top: 2px solid #38383866
+    }
+}
+
+.game-series-info{
+    margin-right: auto;
+}
+
+.game-series-image{
+    margin-right: 15px;
+}
+
+.game-series-title{
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.game-series-price{
+    margin: 35px 35px 0px 0px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.game-extra{
+    color: #383838;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.game-extra-description{
+    width: 800px;
+}
+
+.game-extra-description-title{
+    font-size: 20px;
+    margin-bottom: 20px
+}
+
+.game-extra-description-content{
+    font-size: 16px;
+}
+
+.game-extra-system-title{
+    font-size: 20px;
+    margin-bottom: 20px
+}
+
+
+.game-extra-system-item{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    &:last-child{
+        margin-bottom: 0px;
+    }
+}
+
+.game-reviews{
+    color: #383838;
+    li{
+        border-bottom: 1px solid #383838;
+        padding-bottom: 20px;
+    }
+}
+
+.game-reviews-title{
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.game-review-name{
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.game-review-content{
+    text-indent: 15px;
+}
 
 
 
