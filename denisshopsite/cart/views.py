@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.db.models import F
 from django.shortcuts import render, redirect
 
@@ -6,6 +7,7 @@ from denisshop.models import Game, Key
 
 
 # Create your views here.
+@login_required
 def add_item(request, slug):
     try:
         game = Game.objects.get(slug=slug)
@@ -21,6 +23,7 @@ def add_item(request, slug):
     return redirect(request.META.get('HTTP_REFERER'))
 
 
+@login_required
 def delete_item(request, slug=None):
     if request.GET.get('count') == 'all':
         Cart.objects.filter(user=request.user).delete()
@@ -43,12 +46,14 @@ def delete_item(request, slug=None):
     return redirect(request.META.get('HTTP_REFERER'))
 
 
+@login_required
 def show_cart(request):
     item_list = Cart.objects.filter(user = request.user)
     data = {'item_list':item_list, 'title':'Корзина'}
     return render(request, 'cart/show_cart.html', data)
 
 
+@login_required
 def buy_items(request):
     item_list = Cart.objects.filter(user = request.user)
     for item in item_list:

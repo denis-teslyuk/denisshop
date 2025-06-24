@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.shortcuts import render, redirect
@@ -39,7 +40,7 @@ def show_game(request, slug):
     }
     return render(request, 'denisshop/game.html', data)
 
-
+@login_required
 def add_review(request, slug):
     try:
         key = Key.objects.get(slug = slug, user = request.user, review=None)
