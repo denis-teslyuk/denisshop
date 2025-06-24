@@ -48,6 +48,7 @@
                <div class="index-game-list-item-price">{{g.price}}</div>
                {% endif %}
 
+               {% if user.is_authenticated %}
                {% get_amount user g as amount %}
                {% if amount %}
                <div class="index-game-list-item-control" >
@@ -56,9 +57,12 @@
                     <a href="{% url 'cart:add_item' g.slug %}">+</a>
                     <a href="{% url 'cart:delete_item' g.slug %}"><img src="{% static 'denisshop/img/trash.png' %}" width="20px"/></a>
                </div>
-               {% else %}
-                   <a href="{% url 'cart:add_item' g.slug %}"><div class="index-game-list-item-button">Купить</div></a>
                {% endif %}
+               {% endif %}
+               {% if not user.is_authenticated or amount == 0 %}
+               <a href="{% url 'cart:add_item' g.slug %}"><div class="index-game-list-item-button">Купить</div></a>
+               {% endif %}
+
            </div>
        </li>
     {% endfor %}

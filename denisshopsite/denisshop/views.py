@@ -1,4 +1,5 @@
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Q
 from django.shortcuts import render, redirect
 
 from .forms import ReviewForm, FilterForm
@@ -32,7 +33,9 @@ def show_game(request, slug):
         return redirect('home')
     data = {
         'game':game,
-        'title': game.title
+        'title': game.title,
+        'game_series': Game.objects.filter(~Q(slug = game.slug),series=game.series),
+        'reviews': Review.objects.filter(key__game = game)
     }
     return render(request, 'denisshop/game.html', data)
 

@@ -1,6 +1,99 @@
 {% extends 'base.html' %}
+{% load my_tags %}
+{% load static %}
 
 {% block content %}
-    {{game.title}}
+<div class="game-title">{{game.title}}</div>
+<div class="game-info">
 
+    <div class="game-info-image"><img src="{{game.image.url}}" width="450px"/></div>
+
+    <div class="game-info-data">
+        <div class="game-info-extra">
+        <div class="game-info-extra-platforms">Платформы: {% for pl in game.platform.all %}{{pl.title}} {% endfor %}</div>
+        <div class="game-info-extra-genres">Жанры: {% for gen in game.genres.all%}{{gen.title}} {% endfor %}</div>
+        <div class="game-info-extra-release">Дата выхода: {{game.release}}</div>
+        </div>
+        <div class="game-info-description">{{game.description | truncatewords:20}}</div>
+    </div>
+
+    <div class="game-info-buing">
+
+        <div class="game-info-money">
+            {% if game.sale_price %}
+                <div class="game-info-sale-price">{{game.sale_price}}</div>
+                <div class="game-info-price game-info-price-line_through">{{game.price}}</div>
+            {% else %}
+                <div class="game-info-price">{{game.price}}</div>
+            {% endif %}
+        </div>
+
+        <div class="game-info-buy">
+            {% if user.is_authenticated %}
+            {% get_amount user game as amount %}
+            {% if amount %}
+               <div class="game-info-control" >
+                    <a href="{% url 'cart:delete_item' game.slug %}?count=1">-</a>
+                    <div>{{amount}}</div>
+                    <a href="{% url 'cart:add_item' game.slug %}">+</a>
+                    <a href="{% url 'cart:delete_item' game.slug %}"><img src="{% static 'denisshop/img/trash.png' %}" width="20px"/></a>
+               </div>
+            {% endif %}
+            {% endif %}
+            {% if not user.is_authenticated or not amount %}
+                <a href="{% url 'cart:add_item' game.slug %}"><div class="game-info-buy-button">Купить</div></a>
+            {% endif %}
+        </div>
+
+    </div>
+
+</div>
+
+<div class="game-series">
+    <div class="game-series-header">Товары серии</div>
+    <ul class="game-series-games">
+        {% for g in game_series %}
+            <li class="game-series-item">
+                <div class="game-series-image"><a href="{% url 'show_game' g.slug %}"><img src="{{g.image.url}}" width="150px"/></a></div>
+                <div class="game-series-info">
+                    <div class="game-series-title">{{g.title}}</div>
+                    <div class="game-series-release">Дата выхода: {{g.release}}</div>
+                </div>
+                {% if game.sale_price %}
+                <div class="game-series-price">{{game.sale_price}}</div>
+                {% else %}
+                <div class="game-series-price">{{game.price}}</div>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="game-extra">
+
+    <div class="game-extra-description">
+        <div class="game-extra-description-title">Описание</div>
+        <div class="game-extra-description-content">{{game.description}}</div>
+    </div>
+
+    <div class="game-extra-system">
+        <div class="game-extra-system-title">Системные требования</div>
+        <div class="game-extra-system-item"><div>Процессор:</div><div>{{game.processor}}</div></div>
+        <div class="game-extra-system-item"><div>ОЗУ:</div><div>{{game.ozu}}</div></div>
+        <div class="game-extra-system-item"><div>Видеокарта</div><div>{{game.videocard}}</div></div>
+        <div class="game-extra-system-item"><div>Жесткий диск:</div><div>{{game.hard_space}}</div></div>
+    </div>
+
+</div>
+
+<ul class="game-reviews">
+    {% for r in reviews %}
+        {% if r.key.user.first_name and r.key.user.last_name %}
+            <div>{{r.key.user.first_name}} {{r.key.user.last_name}}</div>
+        {% else %}
+            <div>{{r.key.user.username}}</div>
+        {% endif %}
+        <div>{{r.content}}</div>
+    {% endfor %}
+</ul>
 {% endblock %}
