@@ -55,7 +55,12 @@ def add_review(request, slug):
             return redirect('users:profile')
 
     form = ReviewForm()
-    return render(request, 'denisshop/add_review.html', {'title':'Отзыв', 'form':form})
+    data = {
+        'title': 'Отзыв',
+        'form': form,
+        'game': key.game,
+    }
+    return render(request, 'denisshop/add_review.html', data)
 
 
 def show_review(request):

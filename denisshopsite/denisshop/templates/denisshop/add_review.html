@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+    <div class="add-review-title">Отзыв на: {{game.title}}</div>
+    <div class="add-review-image"><img src="{{game.image.url}}" width="500px"/></div>
+    <div class="add-review-form-container">
     <form action="" method="post">
     {% csrf_token %}
     {{form.as_p}}
-    <button type="submit">Отправить</button>
+    <button class="index-game-list-item-button" type="submit">Отправить</button>
     </form>
+    </div>
 {% endblock %}

@@ -1,0 +1,7 @@
+{% if r.key.user.first_name and r.key.user.last_name %}
+    <div class="game-review-name">{{r.key.user.first_name}} {{r.key.user.last_name}}</div>
+{% else %}
+    <div class="game-review-name">{{r.key.user.username}}</div>
+{% endif %}
+    <div class="game-review-date">{{r.time_create}}</div>
+    <div class="game-review-content">{{r.content}}</div>
