@@ -27,10 +27,10 @@
     <ul class="index-game-list">
     {% for g in games %}
        <li class="index-game-list-item">
-           <div class="index-game-list-item-image"><img src="{{g.image.url}}" width="250"/></div>
+           <div class="index-game-list-item-image"><a href="{% url 'show_game' g.slug %}"><img src="{{g.image.url}}" width="250"/></a></div>
 
            <div class="index-game-list-item-content">
-               <div class="index-game-list-item-title">{{g.title}}</div>
+               <div class="index-game-list-item-title"><a href="{% url 'show_game' g.slug %}">{{g.title}}</a></div>
                <div class="index-game-list-item-release">
                    <div>Дата выхода: </div>
                    <div>{{g.release}}</div>
@@ -57,7 +57,7 @@
                     <a href="{% url 'cart:delete_item' g.slug %}"><img src="{% static 'denisshop/img/trash.png' %}" width="20px"/></a>
                </div>
                {% else %}
-                   <div class="index-game-list-item-button"><a href="{% url 'cart:add_item' g.slug %}">Купить</a></div>
+                   <a href="{% url 'cart:add_item' g.slug %}"><div class="index-game-list-item-button">Купить</div></a>
                {% endif %}
            </div>
        </li>

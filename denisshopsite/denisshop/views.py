@@ -25,6 +25,18 @@ def index(request):
     return render(request, 'denisshop/index.html', data)
 
 
+def show_game(request, slug):
+    try:
+        game = Game.objects.get(slug=slug)
+    except ObjectDoesNotExist:
+        return redirect('home')
+    data = {
+        'game':game,
+        'title': game.title
+    }
+    return render(request, 'denisshop/game.html', data)
+
+
 def add_review(request, slug):
     try:
         key = Key.objects.get(slug = slug, user = request.user, review=None)
