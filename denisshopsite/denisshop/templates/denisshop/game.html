@@ -60,10 +60,10 @@
                     <div class="game-series-title"><a href="{% url 'show_game' g.slug %}">{{g.title}}</a></div>
                     <div class="game-series-release">Дата выхода: {{g.release}}</div>
                 </div>
-                {% if game.sale_price %}
-                <div class="game-series-price">{{game.sale_price}}</div>
+                {% if g.sale_price %}
+                <div class="game-series-price">{{g.sale_price}}</div>
                 {% else %}
-                <div class="game-series-price">{{game.price}}</div>
+                <div class="game-series-price">{{g.price}}</div>
                 {% endif %}
             </li>
         {% endfor %}
