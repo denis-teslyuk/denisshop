@@ -4,8 +4,13 @@ from denisshop.models import Game, Platform, Genre, Series, Key, Review
 admin.site.register(Platform)
 admin.site.register(Genre)
 admin.site.register(Series)
-admin.site.register(Review)
 
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ('pk', )
+    list_display_links = ('pk', )
+    exclude = ('time_create', 'time_update')
 
 @admin.register(Game)
 class GameAdmin(admin.ModelAdmin):

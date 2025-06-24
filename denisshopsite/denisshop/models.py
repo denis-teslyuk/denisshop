@@ -91,6 +91,8 @@ class Review(models.Model):
     content = models.TextField(verbose_name='Содержание')
     key = models.OneToOneField('Key', on_delete=models.CASCADE, null=True,
                                blank=True, related_name='review')
+    time_create = models.DateTimeField(auto_now_add=True)
+    time_update = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = 'Отзыв'
