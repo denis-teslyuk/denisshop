@@ -170,7 +170,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 86px;
 }
 
-.password-change-done {
+.password-done {
   font-size: 20px;
   text-align: center;
   margin-top: 50px;
@@ -205,4 +205,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .register-button {
   width: 163px;
+}
+
+.password-reset-form {
+  text-align: center;
+  font-size: 20px;
+}
+.password-reset-form input {
+  margin: 10px 0px;
 }

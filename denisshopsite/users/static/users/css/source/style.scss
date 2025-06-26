@@ -104,7 +104,7 @@
     width: 86px;
 }
 
-.password-change-done{
+.password-done{
     font-size: 20px;
     text-align: center;
     margin-top: 50px;
@@ -134,5 +134,13 @@
 
 .register-button{
     width: 163px;
+}
+
+.password-reset-form{
+    text-align: center;
+    font-size: 20px;
+    input{
+        margin: 10px 0px;
+    }
 }
 
