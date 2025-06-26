@@ -1,18 +1,27 @@
 {% extends 'base.html'%}
 
 {% block content %}
+<div class="profile-title">{{title}}</div>
+<div class="profile-main">
 <form action="" method="post">
     {% csrf_token %}
     {{form.as_p}}
-    <button type="submit">Изменить данные</button>
+    <div class="users-button"><button type="submit">Изменить данные</button></div>
 </form>
-<a href="{% url 'users:password_change' %}">Изменить пароль</a>
-<a href="{% url 'show_review' %}?choice=my">Мои отзывы</a>
-{% for key in keys %}
-<div>{{key.game.title}}  {{key.key}}
-    {% if not key.review %}
-    <a href="{% url 'add_review' key.slug %}">Написать отзыв</a>
-    {% endif %}
+<div class="profile-links"><a href="{% url 'users:password_change' %}">Изменить пароль</a></div>
+
+<ul class="profile-key-list">
+    {% for key in keys %}
+        <li class="profile-key">
+            <div class="profile-key-game-image"><img src="{{key.game.image.url}}" width="100px"/></div>
+            <div class="profile-key-game-text">{{key.game.title}}</div>
+            <div class="profile-key-game-text">{{key.key}}</div>
+            {% if not key.review %}
+                <div class="profile-key-game-text profile-key-game-text-last"><a href="{% url 'add_review' key.slug %}">Написать отзыв</a></div>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+<div class="profile-links"><a href="{% url 'show_review' %}?choice=my">Мои отзывы</a></div>
 </div>
-{% endfor %}
 {% endblock %}

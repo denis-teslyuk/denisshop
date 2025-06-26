@@ -58,3 +58,110 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
   color: #5d5d5d;
 }
+
+.profile-title {
+  font-size: 26px;
+  text-align: center;
+  margin: 50px 0px 30px;
+}
+
+.profile-main {
+  width: 500px;
+  margin: 0px auto;
+}
+.profile-main a, .profile-main a:visited {
+  color: #5460e3;
+}
+.profile-main form {
+  font-size: 20px;
+}
+.profile-main form p {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 10px;
+}
+.profile-main form input {
+  width: 300px;
+  padding: 3px;
+  border-radius: 3px;
+  border: 0px;
+  -webkit-box-shadow: 1px 1px 1px 1px rgba(56, 56, 56, 0.4);
+          box-shadow: 1px 1px 1px 1px rgba(56, 56, 56, 0.4);
+}
+
+.users-button {
+  margin: 20px auto 15px;
+  width: 150px;
+}
+.users-button button {
+  border: none;
+  text-align: center;
+  -webkit-box-shadow: 1px 1px 1px 1px rgba(2, 2, 2, 0.4666666667);
+          box-shadow: 1px 1px 1px 1px rgba(2, 2, 2, 0.4666666667);
+  background-color: #dfe3e4;
+  padding: 7px;
+  border-radius: 3px;
+  font-size: 16px;
+}
+
+.profile-links {
+  text-decoration: underline;
+  text-decoration-color: #5460e3;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+.profile-key-list {
+  margin-bottom: 20px;
+}
+
+.profile-key {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 16px;
+  border-bottom: 2px solid rgba(56, 56, 56, 0.4);
+  padding: 10px 0px;
+}
+.profile-key div {
+  margin-right: 10px;
+}
+.profile-key:first-child {
+  border-top: 2px solid rgba(56, 56, 56, 0.4);
+  padding-top: 0px;
+}
+.profile-key:last-child {
+  padding-bottom: 0px;
+}
+
+.profile-key-game-text-last {
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: #5460e3;
+  margin-right: 0px;
+}
+
+.password-change-title {
+  font-size: 26px;
+  text-align: center;
+  margin: 50px 0px 30px;
+}
+
+.password-change-form {
+  width: 500px;
+  margin: 0px auto;
+  font-size: 20px;
+}
+.password-change-form input {
+  border-radius: 3px;
+  padding: 3px;
+  border: none;
+  -webkit-box-shadow: 1px 1px 1px 1px rgba(56, 56, 56, 0.4);
+          box-shadow: 1px 1px 1px 1px rgba(56, 56, 56, 0.4);
+}
