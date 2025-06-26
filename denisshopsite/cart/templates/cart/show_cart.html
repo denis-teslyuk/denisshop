@@ -1,18 +1,41 @@
 {% extends 'base.html' %}
 {% load my_tags %}
+{% load static %}
 
 {% block content %}
-    {% for item in item_list %}
-<div>{{item.game.title}}
-    <a href="{% url 'cart:delete_item' item.game.slug %}?count=1">-</a>
-    {{item.amount}}
-    <a href="{% url 'cart:add_item' item.game.slug %}">+</a>
-    <a href="{% url 'cart:delete_item' item.game.slug %}">Удалить</a></div>
-    {% get_free_keys item as free_keys %}
-    {% if free_keys < item.amount %}
-        <span>В наличии {{free_keys}} ключей</span>
+    <div class="cart-title">Корзина</div>
+    {% if not item_list %}
+        <div class="cart-empty">Корзина пуста</div>
     {% endif %}
+    <ul class="cart-item-list">
+    {% for item in item_list %}
+        <li class="cart-item">
+                <div class="cart-item-image"><img src="{{item.game.image.url}}" width="200"></div>
+                <div class="cart-item-title">{{item.game.title}}</div>
+
+                <div class="cart-item-right">
+                    {% if item.game.sale_price %}
+                        <div class="cart-item-price">{{item.game.sale_price}}</div>
+                    {% else %}
+                        <div class="cart-item-price">{{item.game.price}}</div>
+                    {% endif %}
+                    <div class="cart-item-control-main">
+                        <div class="cart-item-control"><a href="{% url 'cart:delete_item' item.game.slug %}?count=1">-</a></div>
+                        <div class="cart-item-control">{{item.amount}}</div>
+                        <div class="cart-item-control"><a href="{% url 'cart:add_item' item.game.slug %}">+</a></div>
+                        <a href="{% url 'cart:delete_item' item.game.slug %}"><img src="{% static 'cart/img/trash.png' %}" width="20px"/></a>
+                    </div>
+                    {% get_free_keys item as free_keys %}
+                    {% if free_keys < item.amount %}
+                        <div class="cart-item-amount">В наличии {{free_keys}} ключей</div>
+                    {% endif %}
+                </div>
+
+        </li>
     {% endfor %}
-    <div><a href="{% url 'cart:delete_item'%}?count=all">Очистить корзину</a></div>
-    <div><a href="{% url 'cart:buy_items' %}">Купить</a></div>
+    </ul>
+    <div class="cart-buttons">
+        <div class="cart-button cart-button-clear"><a href="{% url 'cart:delete_item'%}?count=all">Очистить корзину</a></div>
+        <div class="cart-button"><a href="{% url 'cart:buy_items' %}">Купить</a></div>
+    </div>
 {% endblock %}
