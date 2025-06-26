@@ -1,11 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="users-title">{{title}}</div>
+
+<div class="auth-form">
     <form action="" method="post">
-    {% csrf_token %}
-    <input type="hidden" name="next" value="{{next}}">
-    <div>{{form.as_p}}</div>
-    <button type="submit">Войти</button>
-</form>
-<a href="{% url 'users:password_reset' %}">Восстановить пароль</a>
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{next}}">
+        <div>{{form.as_p}}</div>
+        <div class="users-button login-button"><button type="submit">Войти</button> </div>
+    </form>
+</div>
+<div class="users-links"><a href="{% url 'users:password_reset' %}">Восстановить пароль</a></div>
 {% endblock %}

@@ -1,14 +1,14 @@
 {% extends 'base.html'%}
 
 {% block content %}
-<div class="profile-title">{{title}}</div>
+<div class="users-title">{{title}}</div>
 <div class="profile-main">
 <form action="" method="post">
     {% csrf_token %}
     {{form.as_p}}
-    <div class="users-button"><button type="submit">Изменить данные</button></div>
+    <div class="users-button profile-button"><button type="submit">Изменить данные</button></div>
 </form>
-<div class="profile-links"><a href="{% url 'users:password_change' %}">Изменить пароль</a></div>
+<div class="users-links"><a href="{% url 'users:password_change' %}">Изменить пароль</a></div>
 
 <ul class="profile-key-list">
     {% for key in keys %}
@@ -22,6 +22,7 @@
         </li>
     {% endfor %}
 </ul>
-<div class="profile-links"><a href="{% url 'show_review' %}?choice=my">Мои отзывы</a></div>
+
+<div class="users-links"><a href="{% url 'show_review' %}?choice=my">Мои отзывы</a></div>
 </div>
 {% endblock %}

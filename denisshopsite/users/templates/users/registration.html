@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form action="" method="post">
-  {% csrf_token %}
-  {{form.as_p}}
-  <button type="submit">Зарегистрироваться</button>
-</form>
+<div class="users-title">{{title}}</div>
+<div class="auth-form">
+    <form action="" method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <div class="users-button register-button"><button type="submit">Зарегистрироваться</button></div>
+    </form>
+</div>
 {% endblock %}
