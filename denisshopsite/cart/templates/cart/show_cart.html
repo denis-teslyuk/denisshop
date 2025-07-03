@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load my_tags %}
 {% load static %}
 
 {% block content %}
@@ -25,9 +24,8 @@
                         <div class="cart-item-control"><a href="{% url 'cart:add_item' item.game.slug %}">+</a></div>
                         <a href="{% url 'cart:delete_item' item.game.slug %}"><img src="{% static 'cart/img/trash.png' %}" width="20px"/></a>
                     </div>
-                    {% get_free_keys item as free_keys %}
-                    {% if free_keys < item.amount %}
-                        <div class="cart-item-amount">В наличии {{free_keys}} ключей</div>
+                    {% if item.free_count < item.amount %}
+                        <div class="cart-item-amount">В наличии {{item.free_count}} ключей</div>
                     {% endif %}
                 </div>
 

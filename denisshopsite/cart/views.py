@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.db.models import F
+from django.db.models import F, Count
 from django.shortcuts import render, redirect
 
 from cart.models import Cart
@@ -48,7 +48,13 @@ def delete_item(request, slug=None):
 
 @login_required
 def show_cart(request):
-    item_list = Cart.objects.filter(user = request.user)
+    item_list = Cart.objects.filter(user = request.user).select_related('game')
+
+    num_free_keys = Key.objects.filter(user__isnull=True).values('game_id').annotate(free_count=Count('game_id'))
+    num_free_keys = {k['game_id']: k['free_count'] for k in num_free_keys}
+    for item in item_list:
+        item.free_count = num_free_keys[item.game_id]
+
     data = {'item_list':item_list, 'title':'Корзина'}
     return render(request, 'cart/show_cart.html', data)
 

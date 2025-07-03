@@ -36,7 +36,7 @@ class ProfileUser(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Профиль'
-        context['keys'] = Key.objects.filter(user = self.request.user)
+        context['keys'] = Key.objects.filter(user = self.request.user).select_related('game', 'review')
         return context
 
     def get_object(self, queryset=None):
