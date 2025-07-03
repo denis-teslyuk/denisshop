@@ -40,3 +40,9 @@ def filter_all(request, games):
     games = filter_games(request.GET, games)
 
     return games.filter(title__contains=request.GET.get('search', ''))
+
+
+def add_amount_field(cart_items, games):
+    cart_items = {item.game_id: item.amount for item in cart_items}
+    for game in games:
+        game.amount = cart_items.get(game.pk, 0)

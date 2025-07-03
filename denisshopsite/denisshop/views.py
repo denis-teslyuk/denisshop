@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect
 
 from cart.models import Cart
 from .forms import ReviewForm, FilterForm
-from .utils import sort_games, filter_all
+from .utils import sort_games, filter_all, add_amount_field
 from .models import Game, Key, Review
 
 
@@ -16,10 +16,7 @@ def index(request):
     games = filter_all(request, Game.objects.all().prefetch_related('genres'))
     games = sort_games(request.GET, games) if 'sort' in request.GET else games
 
-    cart_items = {item.game_id:item.amount for item in request.user.cart.all()}
-    for game in games:
-        game.amount = cart_items.get(game.pk, 0)
-
+    add_amount_field(request.user.cart.all(), games)
 
     form = FilterForm(request.GET)
     data = {'games': games,'form':form}
@@ -33,10 +30,7 @@ def show_game(request, slug):
     except ObjectDoesNotExist:
         return redirect('home')
 
-    try:
-        game.amount = request.user.cart.get(game = game).amount
-    except ObjectDoesNotExist:
-        game.amount = 0
+    add_amount_field(request.user.cart.all(), [game])
 
     data = {
         'game':game,
