@@ -30,17 +30,16 @@
 
         <div class="game-info-buy">
             {% if user.is_authenticated %}
-            {% get_amount user game as amount %}
-            {% if amount %}
+            {% if game.amount %}
                <div class="game-info-control" >
                     <div><a href="{% url 'cart:delete_item' game.slug %}?count=1">-</a></div>
-                    <div>{{amount}}</div>
+                    <div>{{game.amount}}</div>
                     <div><a href="{% url 'cart:add_item' game.slug %}">+</a></div>
                     <a href="{% url 'cart:delete_item' game.slug %}"><img src="{% static 'denisshop/img/trash.png' %}" width="20px"/></a>
                </div>
             {% endif %}
             {% endif %}
-            {% if not user.is_authenticated or not amount %}
+            {% if not user.is_authenticated or not game.amount %}
                 <a href="{% url 'cart:add_item' game.slug %}"><div class="game-info-buy-button">Купить</div></a>
             {% endif %}
         </div>
