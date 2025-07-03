@@ -154,7 +154,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 22px;
   margin-right: 40px;
 }
-.cart-button a, .cart-button a:visited {
+.cart-button, .cart-button{
   color: #383838;
 }
 

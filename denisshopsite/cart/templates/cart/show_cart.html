@@ -33,7 +33,7 @@
     {% endfor %}
     </ul>
     <div class="cart-buttons">
-        <div class="cart-button cart-button-clear"><a href="{% url 'cart:delete_item'%}?count=all">Очистить корзину</a></div>
-        <div class="cart-button"><a href="{% url 'cart:buy_items' %}">Купить</a></div>
+        <a href="{% url 'cart:delete_item'%}?count=all"><div class="cart-button cart-button-clear">Очистить корзину</div></a>
+        <a href="{% url 'cart:buy_items' %}"><div class="cart-button">Купить</div></a>
     </div>
 {% endblock %}
