@@ -5,7 +5,7 @@ def filter_games(get_dict, queryset):
     for key in get_dict:
         if key in ('genres', 'platform', 'series'):
             lookup = f'{key}__id__in'
-            arg_list = get_dict.getlist(key)
+            arg_list = filter(lambda x: x.isdigit(),get_dict.getlist(key))
             queryset = queryset.filter(**{lookup : arg_list}).distinct()
 
     return queryset
