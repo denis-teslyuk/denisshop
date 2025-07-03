@@ -16,9 +16,8 @@ def sort_games(get_dict, queryset):
         calc_sale = lambda a, b: (1 - a/b) * 100
         queryset = queryset.annotate(percent=calc_sale(F('sale_price'), F('price'))
                                       if F('sale_price') is not None else 0)
-        queryset = queryset.order_by('percent')
 
-    PARAM_NAMES = ('price', '-price', 'title', '-title', 'release', '-release')
+    PARAM_NAMES = ('price', '-price', 'title', '-title', 'release', '-release', 'percent')
     if get_dict['sort'] in PARAM_NAMES:  # Сортировка по полям
         queryset = queryset.order_by(get_dict['sort'])
 
