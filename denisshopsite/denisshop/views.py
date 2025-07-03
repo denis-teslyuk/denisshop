@@ -16,7 +16,7 @@ def index(request):
     games = filter_all(request, Game.objects.all().prefetch_related('genres'))
     games = sort_games(request.GET, games) if 'sort' in request.GET else games
 
-    cart_items = {item.game_id:item.amount for item in Cart.objects.filter(user = request.user)}
+    cart_items = {item.game_id:item.amount for item in request.user.cart.all()}
     for game in games:
         game.amount = cart_items.get(game.pk, 0)
 
@@ -73,11 +73,9 @@ def add_review(request, slug):
 
 def show_review(request):
     if request.GET.get('choice') == 'my':
-        review_list = Review.objects.filter(key__user = request.user)
+        review_list = Review.objects.filter(key__user = request.user).select_related('key', 'key__user')
     else:
-        review_list = Review.objects.all()
-    data = {
-        'title':'Отзывы',
-        'review_list':review_list
-    }
+        review_list = Review.objects.all().select_related('key__user')
+
+    data = {'title':'Отзывы','review_list':review_list}
     return render(request, 'denisshop/show_review.html', data)
