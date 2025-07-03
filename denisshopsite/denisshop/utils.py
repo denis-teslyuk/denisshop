@@ -31,3 +31,12 @@ def filter_price(get_dict, queryset):
     max_price = get_dict.get('max_price') if check_price(get_dict.get('max_price')) else 1000000
     queryset = queryset.filter(price__gte = min_price, price__lte = max_price)
     return queryset
+
+
+def filter_all(request, games):
+    games = games.filter(sale_price__isnull=False) if 'sale' in request.GET else games
+
+    games = filter_price(request.GET, games)
+    games = filter_games(request.GET, games)
+
+    return games.filter(title__contains=request.GET.get('search', ''))

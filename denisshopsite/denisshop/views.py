@@ -4,26 +4,22 @@ from django.db.models import Q
 from django.shortcuts import render, redirect
 
 from .forms import ReviewForm, FilterForm
-from .utils import filter_games, sort_games, filter_price
+from .utils import sort_games, filter_all
 from .models import Game, Key, Review
 
 
 # Create your views here.
 def index(request):
-    games = Game.objects.all()
-    form = FilterForm(request.GET)
-
-    games = games.filter(sale_price__isnull=False) if 'sale' in request.GET else games
-    games = games.filter(title__contains=request.GET.get('search', ''))
-
-    games = filter_price(request.GET, games)
-    games = filter_games(request.GET, games)
+    games = filter_all(request, Game.objects.all())
     games = sort_games(request.GET, games) if 'sort' in request.GET else games
+
+    form = FilterForm(request.GET)
 
     data = {
         'games': games,
         'form':form
     }
+
     return render(request, 'denisshop/index.html', data)
 
 
