@@ -1,4 +1,5 @@
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.paginator import Paginator
 from django.db.models import F
 
 
@@ -46,3 +47,13 @@ def add_amount_field(cart_items, games):
     cart_items = {item.game_id: item.amount for item in cart_items}
     for game in games:
         game.amount = cart_items.get(game.pk, 0)
+
+
+def get_page(request, obj_list):
+    paginator = Paginator(obj_list, 10)
+    if request.GET.get('page') is not None and 1 <= int(request.GET.get('page')) <= paginator.num_pages:
+        page = paginator.page(request.GET.get('page'))
+    else:
+        page = paginator.page(1)
+
+    return page

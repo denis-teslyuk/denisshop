@@ -1,14 +1,11 @@
-from time import time
-
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render, redirect
 
 from cart.utils import get_count_free_keys
 from .forms import ReviewForm, FilterForm
-from .utils import sort_games, filter_all, add_amount_field
+from .utils import sort_games, filter_all, add_amount_field, get_page
 from .models import Game, Key, Review
 
 
@@ -20,11 +17,7 @@ def index(request):
     if request.user.is_authenticated:
         add_amount_field(request.user.cart.all(), games)
 
-    paginator = Paginator(games, 10)
-    if request.GET.get('page') is not None and 1 <= int(request.GET.get('page')) <= paginator.num_pages:
-        page = paginator.page(request.GET.get('page'))
-    else:
-        page = paginator.page(1)
+    page = get_page(request, games)
 
     form = FilterForm(request.GET)
     data = {'page': page,'form':form}
@@ -82,11 +75,7 @@ def show_review(request):
     else:
         review_list = Review.objects.all().select_related('key__user')
 
-    paginator = Paginator(review_list, 10)
-    if request.GET.get('page') is not None and 1 <= int(request.GET.get('page')) <= paginator.num_pages:
-        page = paginator.page(request.GET.get('page'))
-    else:
-        page = paginator.page(1)
+    page = get_page(request, review_list)
 
     data = {'title':'Отзывы','page':page}
     return render(request, 'denisshop/show_review.html', data)
