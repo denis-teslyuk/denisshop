@@ -22,9 +22,9 @@
         </form>
 
     </aside>
-
+    <div>
     <ul class="index-game-list">
-    {% for g in games %}
+    {% for g in page.object_list %}
        <li class="index-game-list-item">
            <div class="index-game-list-item-image"><a href="{% url 'show_game' g.slug %}"><img src="{{g.image.url}}" width="250"/></a></div>
 
@@ -65,6 +65,14 @@
        </li>
     {% endfor %}
     </ul>
+    <ul class="index-page_list">
+    {% for p in page.paginator.page_range %}
+        {% if p < page.number|add:3 and p > page.number|add:-3 %}
+        <li><a href="?page={{p}}">{{p}}</a></li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+    </div>
 </div>
 
 

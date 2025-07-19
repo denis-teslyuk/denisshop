@@ -323,6 +323,24 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 22px;
 }
 
+.index-page_list {
+  margin-top: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.index-page_list li {
+  margin-right: 10px;
+  font-size: 22px;
+  font-weight: 700;
+}
+.index-page_list li a, .index-page_list li a:visited {
+  color: #383838;
+}
+
 .game-title {
   font-size: 26px;
   font-weight: 700;

@@ -2,6 +2,7 @@ from time import time
 
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render, redirect
 
@@ -18,8 +19,12 @@ def index(request):
     if request.user.is_authenticated:
         add_amount_field(request.user.cart.all(), games)
 
+    paginator = Paginator(games, 10)
+
+    page = paginator.page(request.GET.get('page', 1))
+
     form = FilterForm(request.GET)
-    data = {'games': games,'form':form}
+    data = {'page': page,'form':form}
 
     return render(request, 'denisshop/index.html', data)
 
