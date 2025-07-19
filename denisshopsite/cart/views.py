@@ -51,7 +51,7 @@ def buy_items(request):
 
     num_free_keys_by_game = get_count_free_keys()
     for item in item_list:
-        if item.amount > num_free_keys_by_game[item.game_id]:
+        if item.amount > num_free_keys_by_game.get(item.game_id, 0):
             return redirect(request.META.get('HTTP_REFERER', '/'))
 
     #Здесь мог бы быть код для оплаты

@@ -21,8 +21,10 @@ def index(request):
         add_amount_field(request.user.cart.all(), games)
 
     paginator = Paginator(games, 10)
-
-    page = paginator.page(request.GET.get('page', 1))
+    if request.GET.get('page') is not None and 1 <= int(request.GET.get('page')) <= paginator.num_pages:
+        page = paginator.page(request.GET.get('page'))
+    else:
+        page = paginator.page(1)
 
     form = FilterForm(request.GET)
     data = {'page': page,'form':form}
@@ -80,8 +82,11 @@ def show_review(request):
     else:
         review_list = Review.objects.all().select_related('key__user')
 
-    paginator = Paginator(review_list, 20)
-    page = paginator.page(request.GET.get('page', 1))
+    paginator = Paginator(review_list, 10)
+    if request.GET.get('page') is not None and 1 <= int(request.GET.get('page')) <= paginator.num_pages:
+        page = paginator.page(request.GET.get('page'))
+    else:
+        page = paginator.page(1)
 
     data = {'title':'Отзывы','page':page}
     return render(request, 'denisshop/show_review.html', data)
