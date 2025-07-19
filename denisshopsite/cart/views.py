@@ -12,11 +12,11 @@ def add_item(request, slug):
     try:
         game = Game.objects.get(slug=slug)
     except:
-        return redirect(request.META.get('HTTP_REFERER'))
+        return redirect(request.META.get('HTTP_REFERER', '/'))
 
     handle_add(request, game)
 
-    return redirect(request.META.get('HTTP_REFERER'))
+    return redirect(request.META.get('HTTP_REFERER', '/'))
 
 
 @login_required
@@ -27,10 +27,10 @@ def delete_item(request, slug=None):
         try:
             item = Cart.objects.get(game__slug=slug, user=request.user)
         except:
-            return redirect(request.META.get('HTTP_REFERER'))
+            return redirect(request.META.get('HTTP_REFERER', '/'))
         delete_one(request, item)
 
-    return redirect(request.META.get('HTTP_REFERER'))
+    return redirect(request.META.get('HTTP_REFERER', '/'))
 
 
 @login_required
@@ -52,13 +52,13 @@ def buy_items(request):
     num_free_keys_by_game = get_count_free_keys()
     for item in item_list:
         if item.amount > num_free_keys_by_game[item.game_id]:
-            return redirect(request.META.get('HTTP_REFERER'))
+            return redirect(request.META.get('HTTP_REFERER', '/'))
 
     #Здесь мог бы быть код для оплаты
 
     mark_purchased(request.user, item_list)
 
-    return redirect(request.META.get('HTTP_REFERER'))
+    return redirect(request.META.get('HTTP_REFERER', '/'))
 
 
 
