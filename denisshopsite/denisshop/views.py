@@ -76,5 +76,8 @@ def show_review(request):
     else:
         review_list = Review.objects.all().select_related('key__user')
 
-    data = {'title':'Отзывы','review_list':review_list}
+    paginator = Paginator(review_list, 20)
+    page = paginator.page(request.GET.get('page', 1))
+
+    data = {'title':'Отзывы','page':page}
     return render(request, 'denisshop/show_review.html', data)
