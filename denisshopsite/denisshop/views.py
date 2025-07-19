@@ -1,6 +1,7 @@
 from time import time
 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import AnonymousUser
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q, Value
 from django.shortcuts import render, redirect
@@ -16,7 +17,8 @@ def index(request):
     games = filter_all(request, Game.objects.all().prefetch_related('genres'))
     games = sort_games(request.GET, games) if 'sort' in request.GET else games
 
-    add_amount_field(request.user.cart.all(), games)
+    if request.user.is_authenticated:
+        add_amount_field(request.user.cart.all(), games)
 
     form = FilterForm(request.GET)
     data = {'games': games,'form':form}

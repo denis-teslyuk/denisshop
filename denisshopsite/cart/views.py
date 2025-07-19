@@ -49,7 +49,7 @@ def show_cart(request):
 def buy_items(request):
     item_list = Cart.objects.filter(user = request.user)
 
-    num_free_keys_by_game = get_num_free_keys()
+    num_free_keys_by_game = get_count_free_keys()
     for item in item_list:
         if item.amount > num_free_keys_by_game[item.game_id]:
             return redirect(request.META.get('HTTP_REFERER'))
