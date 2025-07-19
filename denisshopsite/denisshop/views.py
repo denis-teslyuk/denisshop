@@ -6,6 +6,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render, redirect
 
+from cart.utils import get_count_free_keys
 from .forms import ReviewForm, FilterForm
 from .utils import sort_games, filter_all, add_amount_field
 from .models import Game, Key, Review
@@ -13,7 +14,7 @@ from .models import Game, Key, Review
 
 # Create your views here.
 def index(request):
-    games = filter_all(request, Game.objects.all().prefetch_related('genres'))
+    games = filter_all(request, Game.objects.filter(keys__user__isnull = True).distinct().prefetch_related('genres'))
     games = sort_games(request.GET, games) if 'sort' in request.GET else games
 
     if request.user.is_authenticated:
@@ -35,12 +36,15 @@ def show_game(request, slug):
     except ObjectDoesNotExist:
         return redirect('home')
 
-    add_amount_field(request.user.cart.all(), [game])
+    if request.user.is_authenticated:
+        add_amount_field(request.user.cart.all(), [game])
+
+    game.free_keys = get_count_free_keys().get(game.pk, 0)
 
     data = {
         'game':game,
         'title': game.title,
-        'game_series': Game.objects.filter(~Q(slug = game.slug),series=game.series),
+        'game_series': Game.objects.filter(~Q(slug = game.slug),series=game.series).prefetch_related('keys'),
         'reviews': Review.objects.filter(key__game = game)
     }
     return render(request, 'denisshop/game.html', data)

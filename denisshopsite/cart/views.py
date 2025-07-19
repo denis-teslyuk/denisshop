@@ -39,7 +39,7 @@ def show_cart(request):
 
     count_free_keys_by_game = get_count_free_keys()
     for item in item_list:
-        item.free_count = count_free_keys_by_game[item.game_id]
+        item.free_count = count_free_keys_by_game.get(item.game_id, 0)
 
     data = {'item_list':item_list, 'title':'Корзина'}
     return render(request, 'cart/show_cart.html', data)

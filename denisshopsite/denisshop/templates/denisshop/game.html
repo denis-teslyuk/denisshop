@@ -38,7 +38,9 @@
                </div>
             {% endif %}
             {% endif %}
-            {% if not user.is_authenticated or not game.amount %}
+            {% if game.free_keys == 0%}
+                <div class="game-info-buy-sold">Нет в наличиии</div>
+            {% elif not user.is_authenticated or not game.amount %}
                 <a href="{% url 'cart:add_item' game.slug %}"><div class="game-info-buy-button">Купить</div></a>
             {% endif %}
         </div>

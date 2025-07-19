@@ -413,6 +413,10 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 20px;
 }
 
+.game-info-buy-sold {
+  font-size: 20px;
+}
+
 .game-info-buy-button {
   width: 150px;
   text-align: center;
