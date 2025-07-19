@@ -28,7 +28,7 @@ def delete_one(request, item):
 
 def mark_purchased(user, item_list):
     for item in item_list:
-        keys = Key.objects.filter(game = item.game)[:item.amount]
+        keys = Key.objects.filter(game = item.game, user__isnull = True)[:item.amount]
         for key in keys:
             key.user = user
             key.save()
