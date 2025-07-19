@@ -79,3 +79,6 @@ def show_review(request):
 
     data = {'title':'Отзывы','page':page}
     return render(request, 'denisshop/show_review.html', data)
+
+def handle_404(request, exception):
+    return render(request, 'denisshop/404.html')
