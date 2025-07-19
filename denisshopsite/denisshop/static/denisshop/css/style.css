@@ -217,6 +217,10 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 3px;
 }
 
+.index-games-not-found {
+  font-size: 20px;
+}
+
 .index-game-list {
   margin-left: 30px;
   width: 100%;

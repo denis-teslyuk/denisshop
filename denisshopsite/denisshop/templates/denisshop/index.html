@@ -23,6 +23,9 @@
 
     </aside>
     <div>
+    {% if not page.object_list %}
+        <div class="index-games-not-found">Нет игр по выбранным фильтрам</div>
+    {% else %}
     <ul class="index-game-list">
     {% for g in page.object_list %}
        <li class="index-game-list-item">
@@ -73,6 +76,7 @@
     {% endfor %}
     </ul>
     </div>
+    {% endif %}
 </div>
 
 
