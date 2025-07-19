@@ -568,3 +568,15 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
   margin: 40px 0px;
 }
+
+.footer {
+  background-color: #3A3F45;
+  color: #EDF1F2;
+  text-align: center;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.footer-info {
+  margin-top: 10px;
+}

@@ -1,12 +1,10 @@
 from time import time
 
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import AnonymousUser
 from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import Q, Value
+from django.db.models import Q
 from django.shortcuts import render, redirect
 
-from cart.models import Cart
 from .forms import ReviewForm, FilterForm
 from .utils import sort_games, filter_all, add_amount_field
 from .models import Game, Key, Review
